@@ -10,6 +10,7 @@ class TweetAdmin(admin.ModelAdmin):
 	list_display = (
 		'payload',
 		'user',
+		'like_count',
 		'created_at',
 		'updated_at',
 	)

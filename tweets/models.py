@@ -10,3 +10,6 @@ class Tweet(CommomModel):
 	
 	def __str__(self):
 		return self.payload
+	
+	def like_count(tweet):
+		return tweet.likes.count()
