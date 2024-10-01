@@ -13,3 +13,7 @@ class LikeAdmin(admin.ModelAdmin):
 		"created_at",
 		"updated_at",		
 	)
+
+	list_filter = ('created_at',)
+
+	search_fields = ('user__username',)
