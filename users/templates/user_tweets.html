@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	{% for user_tweet in user_tweets %}
+	<div style="border: 1px solid black; margin-top: 10px; border-radius: 8px;">
+		<div>idx: {{ forloop.counter }}</div>
+		<div>username: {{ user_tweet.user.username }}</div>
+		<div>payload: {{ user_tweet.payload }}</div>
+		<div>likes: {{ tweet.like_count }}</div>
+		<div>created_at: {{ user_tweet.created_at }}</div>
+	</div>
+	{% endfor %}
+</body>
+</html>

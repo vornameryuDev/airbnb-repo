@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	{% for user in all_users %}
+	<div style="border: 1px solid black; margin-top: 10px; border-radius: 8px;">
+		<div>idx: {{ forloop.counter }}</div>
+		<div>pk: {{ user.pk }}</div>
+		<div>username: {{ user.username }}</div>
+		<div>email: {{ user.email }}</div>
+		<div>is_active: {{ user.is_active }}</div>
+		<div>created_at: {{ user.created_at }}</div>
+	</div>
+	{% endfor %}
+</body>
+</html>
