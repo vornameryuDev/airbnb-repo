@@ -1,24 +1,20 @@
 from rest_framework import serializers
+from users.models import User
 
 
 
 
-class AllUserSerializer(serializers.Serializer):
-	pk = serializers.IntegerField(
-			read_only=True,
-	)
-	username = serializers.CharField(
-		max_length=150,
-	)
+class AllUserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = (
+			"pk",
+			"username",
+			"email"
+		)
 
 
-class UserSerializer(serializers.Serializer):
-	
-	pk = serializers.IntegerField(
-			read_only=True,
-	)
-	username = serializers.CharField(
-		max_length=150,
-	)
-	email = serializers.EmailField()
-	is_active = serializers.BooleanField()
+class UserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = "__all__"

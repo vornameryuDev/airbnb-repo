@@ -2,46 +2,69 @@ from urllib import request
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.exceptions import NotFound
+from tweets.serializers import TweetSerializer
+from users import serializers
 from users.models import User
 from users.serializers import AllUserSerializer, UserSerializer
 
 
-@api_view()
-def all_users(request):
-	all_users = User.objects.all()
-	serializer = AllUserSerializer(all_users, many=True)
-	return Response(
-		{
-			'ok':True,
-			'all_users': serializer.data
-		}
-	)
+
+class Users(APIView):
+	def get(self, request):
+		all_users = User.objects.all()
+		serializer = AllUserSerializer(
+			all_users,
+			many=True,
+			context={
+				'request': request
+			}
+		)
+		return Response(
+			{
+				'ok':True,
+				'all_users': serializer.data
+			}
+		)
 
 
-@api_view()
-def user(request, user_pk):
-	try:
-		user = User.objects.get(pk=user_pk)
-		serializer = UserSerializer(user)
+class UserDetail(APIView):
+	def get_object(self, user_pk):
+		try:
+			user = User.objects.get(pk=user_pk)
+			return user
+		except User.DoesNotExist:
+			return NotFound
+
+	def get(self, request, user_pk):
+		user = self.get_object(user_pk)
+		serializer = UserSerializer(
+			user,
+			context={'request': request}
+		)
 		return Response(
 			{
 				'ok': True,
 				'user': serializer.data
 			}
 		)
-	except User.DoesNotExist:
+
+
+class UserTweets(APIView):
+	def get_object(self, user_pk):
+		try:
+			user = User.objects.get(pk=user_pk)
+			return user.tweets.all()
+		except User.DoesNotExist:
+			return NotFound
+		
+	def get(self, request, user_pk):
+		tweets = self.get_object(user_pk)
+		serializers = TweetSerializer(tweets, many=True)
 		return Response(
 			{
-				'ok': False
+				'ok': True,
+				'user_tweets': serializers.data
 			}
 		)
-
-
-def user_tweets(request, user_pk):
-	tweets = User.objects.get(pk=user_pk).tweets.all()
-	return render(
-		request=request,
-		template_name="user_tweets.html",
-		context={'user_tweets': tweets}
-	)
-

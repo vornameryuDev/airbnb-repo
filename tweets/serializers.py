@@ -1,13 +1,12 @@
 from rest_framework import serializers
+from tweets.models import Tweet
 from users.serializers import UserSerializer
 
 
-class TweetSerializer(serializers.Serializer):
-	pk = serializers.IntegerField(
-			read_only=True,
-	)
-	payload = serializers.CharField(
-			max_length=180,
-	)
+
+class TweetSerializer(serializers.ModelSerializer):	
 	user = UserSerializer(read_only=True)
-	created_at = serializers.DateTimeField()
+
+	class Meta:
+		model = Tweet
+		fields = "__all__"
