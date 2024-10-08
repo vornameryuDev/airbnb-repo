@@ -1,13 +1,13 @@
-from urllib import request
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
+from rest_framework import status
 from tweets.serializers import TweetSerializer
 from users import serializers
 from users.models import User
-from users.serializers import AllUserSerializer, UserSerializer
+from users.serializers import AllUserSerializer, UserCreateSerializer, UserSerializer
 
 
 
@@ -27,6 +27,21 @@ class Users(APIView):
 				'all_users': serializer.data
 			}
 		)
+	
+	def post(self, request):
+		serializer = UserCreateSerializer(data=request.data)
+		if serializer.is_valid():
+			new_user = serializer.save()
+			return Response(
+				data=UserSerializer(new_user).data,
+				status=status.HTTP_201_CREATED
+			)
+		else:
+			return Response(
+				data=serializer.errors,
+				status=status.HTTP_400_BAD_REQUEST
+			)
+
 
 
 class UserDetail(APIView):

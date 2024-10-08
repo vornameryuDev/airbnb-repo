@@ -4,6 +4,16 @@ from users.models import User
 
 
 
+class UserCreateSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = User
+		fields = (
+			"username",
+			"password"			
+		)
+
+
 class AllUserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
@@ -12,7 +22,7 @@ class AllUserSerializer(serializers.ModelSerializer):
 			"username",
 			"email"
 		)
-
+		
 
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
