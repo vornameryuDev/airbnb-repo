@@ -1,22 +1,22 @@
 [Routes]
 1. Class Tweets(APIView)
-- GET /api/v1/tweets: See all tweets
-- POST /api/v1/tweets: Create a tweet
+- GET /api/v1/tweets: See all tweets[x]
+- POST /api/v1/tweets: Create a tweet[x]
 
 2. class TweetDetail(APIView)
-- GET /api/v1/tweets/<int:pk>: See a tweet
-- PUT /api/v1/tweets/<int:pk>: Edit a tweet
-- DELETE /api/v1/tweets/<int:pk>: Delete a tweet
+- GET /api/v1/tweets/<int:pk>: See a tweet[x]
+- PUT /api/v1/tweets/<int:pk>: Edit a tweet[x]
+- DELETE /api/v1/tweets/<int:pk>: Delete a tweet[x]
 
 3. class Users(APIView)
-- GET /api/v1/users: See all users
-- POST /api/v1/users: Create a user account with password
+- GET /api/v1/users: See all users[x]
+- POST /api/v1/users: Create a user account with password[x]
 
 4. class UserDetail(APIView)
-- GET /api/v1/users/<int:pk>: See user profile
+- GET /api/v1/users/<int:pk>: See user profile[x]
 
 5. class UserTweet(APIView)
-- GET /api/v1/users/<int:pk>/tweets: See tweets by a user
+- GET /api/v1/users/<int:pk>/tweets: See tweets by a user[x]
 
 6.
 - PUT /api/v1/users/password: Change password of logged in user.
