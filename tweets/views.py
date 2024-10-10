@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 
@@ -15,6 +16,16 @@ from tweets.serializers import TweetSerializer
 
 class Tweets(APIView):
 
+	permission_classes = [IsAuthenticated]
+
+	#get의경우 인증 필요없도록
+	def get_permissions(self):
+		if self.request.method == "GET":
+			return [AllowAny()]
+		else:
+			return super().get_permissions()
+		
+
 	def get(self, request):
 		tweets = Tweet.objects.all()
 		serializer = TweetSerializer(tweets, many=True)
@@ -25,7 +36,8 @@ class Tweets(APIView):
 			}
 		)
 	
-	def post(self, request):		
+	
+	def post(self, request):
 		serializer = TweetSerializer(data=request.data)
 		if serializer.is_valid():
 			new_tweet = serializer.save(user=request.user) #user(FK)정보 전달
@@ -41,6 +53,8 @@ class Tweets(APIView):
 	
 
 class TweetDetail(APIView):
+
+	permission_classes = [IsAuthenticated]
 
 	def get_object(self, tweet_pk):		
 		return Tweet.objects.get(pk=tweet_pk)
@@ -82,8 +96,3 @@ class TweetDetail(APIView):
 			data={'delete ok': True},
 			status=status.HTTP_204_NO_CONTENT
 		)
-
-
-		
-		
-

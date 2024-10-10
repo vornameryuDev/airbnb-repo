@@ -18,22 +18,22 @@
 5. class UserTweet(APIView)
 - GET /api/v1/users/<int:pk>/tweets: See tweets by a user[x]
 
-6.
-- PUT /api/v1/users/password: Change password of logged in user.
+6. class ChangePassword
+- PUT /api/v1/users/password: Change password of logged in user.[x]
 
 7. class Login(APIView) in users app
-- POST /api/v1/users/login: Log user in
+- POST /api/v1/users/login: Log user in[x]
 
 8. class Logout(APIView) in users app
-- POST /api/v1/users/logout: Log user out
+- POST /api/v1/users/logout: Log user out[x]
 
 
 [Authentication]
-- UsernameAuthentication라는 이름의 authentication class를 빌드하세요.
-- UsernameAuthentication 는 반드시 BaseAuthentication에서 extend 되어야 합니다.
-- X-USERNAME 헤더를 사용하는 유저를 찾으세요.
+- UsernameAuthentication라는 이름의 authentication class를 빌드하세요.[x]
+- UsernameAuthentication 는 반드시 BaseAuthentication에서 extend 되어야 합니다.[x]
+- X-USERNAME 헤더를 사용하는 유저를 찾으세요.[x]
 
 
 [Testing]
-- /api/v1/tweets: Test GET and POST methods
-- /api/v1/tweets/<int:pk>: Test GET, PUT and DELETE methods
+- /api/v1/tweets: Test GET and POST methods[x]
+- /api/v1/tweets/<int:pk>: Test GET, PUT and DELETE methods[x]
